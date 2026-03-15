@@ -43,6 +43,13 @@ Controller → Service → Repository → Entity
 - Controller から exception パッケージへの依存は ArchUnit で禁止している (ただし `IllegalStateException` 等の標準例外の
   catch は検出できない)
 
+## Enum の永続化
+
+- `@Enumerated(EnumType.STRING)` は使用しない
+  - enum名がそのままDB値になるため、enum名のリファクタリングでDBデータと不整合が起きる
+- 代わりに `AttributeConverter` を使い、enum と DB値のマッピングを明示的に定義する
+  - enum名を自由に変更しても、Converter 内のマッピングが変わらなければDB側に影響しない
+
 ## 技術スタック
 
 - Java 25 (Amazon Corretto)
