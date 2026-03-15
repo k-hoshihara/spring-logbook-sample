@@ -37,8 +37,7 @@ public class EmployeeController {
 
     @PutMapping("/{id}")
     public EmployeeResponse replaceEmployee(@RequestBody EmployeeRequest request, @PathVariable Long id) {
-        String name = request.firstName() + " " + request.lastName();
-        return service.update(id, name, request.role());
+        return service.update(id, request.firstName(), request.lastName(), request.role());
     }
 
     @DeleteMapping("/{id}")

@@ -32,17 +32,15 @@ public class EmployeeService {
         return toResponse(employee);
     }
 
-    public EmployeeResponse update(Long id, String name, String role) {
+    public EmployeeResponse update(Long id, String firstName, String lastName, String role) {
         Employee employee = repository.findById(id)
             .map(e -> {
-                e.setName(name);
+                e.setFirstName(firstName);
+                e.setLastName(lastName);
                 e.setRole(role);
                 return repository.save(e);
             })
-            .orElseGet(() -> {
-                String[] parts = name.split(" ");
-                return repository.save(new Employee(parts[0], parts[1], role));
-            });
+            .orElseGet(() -> repository.save(new Employee(firstName, lastName, role)));
         return toResponse(employee);
     }
 
