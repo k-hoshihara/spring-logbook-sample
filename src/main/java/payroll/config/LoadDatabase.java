@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import payroll.entity.CustomerOrder;
 import payroll.entity.Employee;
 import payroll.enums.OrderStatus;
@@ -13,9 +14,10 @@ import payroll.repository.OrderRepository;
 
 /**
  * アプリケーション起動時にH2データベースへサンプルデータを投入する設定クラス。
- * 開発・動作確認用のため、本番環境では無効化すること。
+ * 開発・動作確認用。stg, prod プロファイルでは無効化される。
  */
 @Configuration
+@Profile("!stg & !prod")
 class LoadDatabase {
 
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
