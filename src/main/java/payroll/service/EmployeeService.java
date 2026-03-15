@@ -58,7 +58,6 @@ public class EmployeeService {
             employee.getId(),
             employee.getFirstName(),
             employee.getLastName(),
-            employee.getName(),
             employee.getRole()
         );
     }

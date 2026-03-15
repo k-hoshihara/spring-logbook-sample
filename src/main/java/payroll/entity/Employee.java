@@ -25,16 +25,6 @@ public class Employee {
         this.role = role;
     }
 
-    public String getName() {
-        return this.firstName + " " + this.lastName;
-    }
-
-    public void setName(String name) {
-        String[] parts = name.split(" ");
-        this.firstName = parts[0];
-        this.lastName = parts[1];
-    }
-
     public Long getId() {
         return this.id;
     }
