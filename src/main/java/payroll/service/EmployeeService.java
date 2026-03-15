@@ -33,15 +33,11 @@ public class EmployeeService {
     }
 
     public EmployeeResponse update(Long id, String firstName, String lastName, String role) {
-        Employee employee = repository.findById(id)
-            .map(e -> {
-                e.setFirstName(firstName);
-                e.setLastName(lastName);
-                e.setRole(role);
-                return repository.save(e);
-            })
-            .orElseGet(() -> repository.save(new Employee(firstName, lastName, role)));
-        return toResponse(employee);
+        Employee employee = findEntityById(id);
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        employee.setRole(role);
+        return toResponse(repository.save(employee));
     }
 
     public void deleteById(Long id) {
