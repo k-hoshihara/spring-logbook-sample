@@ -33,10 +33,15 @@ payroll/
 Controller → Service → Repository → Entity
 ```
 
-- Controller は Repository, Entity に直接アクセスしない
+- Controller は Repository, Entity に直接アクセスしない（ArchUnit で強制）
 - Controller は Request / Response DTO のみを扱う
 - Service が Entity ↔ Response DTO の変換を担当
-- これらのルールは ArchUnit テストで強制している
+
+## 例外ハンドリング
+
+- Controller では正常系のみを扱い、例外ハンドリングは `@RestControllerAdvice` に集約する
+- Controller から exception パッケージへの依存は ArchUnit で禁止している (ただし `IllegalStateException` 等の標準例外の
+  catch は検出できない)
 
 ## 技術スタック
 

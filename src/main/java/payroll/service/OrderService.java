@@ -5,6 +5,7 @@ import payroll.controller.response.OrderResponse;
 import payroll.entity.CustomerOrder;
 import payroll.enums.OrderStatus;
 import payroll.exception.OrderNotFoundException;
+import payroll.exception.OrderStatusTransitionException;
 import payroll.repository.OrderRepository;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class OrderService {
     public OrderResponse cancel(Long id) {
         CustomerOrder order = findEntityById(id);
         if (order.getStatus() != OrderStatus.IN_PROGRESS) {
-            throw new IllegalStateException("You can't cancel an order that is in the " + order.getStatus() + " status");
+            throw new OrderStatusTransitionException("You can't cancel an order that is in the " + order.getStatus() + " status");
         }
         order.setStatus(OrderStatus.CANCELLED);
         return toResponse(repository.save(order));
@@ -45,7 +46,7 @@ public class OrderService {
     public OrderResponse complete(Long id) {
         CustomerOrder order = findEntityById(id);
         if (order.getStatus() != OrderStatus.IN_PROGRESS) {
-            throw new IllegalStateException("You can't complete an order that is in the " + order.getStatus() + " status");
+            throw new OrderStatusTransitionException("You can't complete an order that is in the " + order.getStatus() + " status");
         }
         order.setStatus(OrderStatus.COMPLETED);
         return toResponse(repository.save(order));

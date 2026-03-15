@@ -24,4 +24,13 @@ class ArchitectureTest {
             .that().resideInAPackage("..controller..")
             .should().dependOnClassesThat().resideInAPackage("..entity..")
             .as("ControllerはEntityに直接アクセスしてはならない");
+
+    // カスタム例外のControllerでのcatchを防ぐ。
+    // IllegalStateException等の標準例外は検出できないため、完全ではない。
+    @ArchTest
+    static final ArchRule controller_should_not_access_exception =
+        noClasses()
+            .that().resideInAPackage("..controller..")
+            .should().dependOnClassesThat().resideInAPackage("..exception..")
+            .as("Controllerは例外を直接ハンドリングせずRestControllerAdviceに委譲する");
 }

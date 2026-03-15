@@ -1,6 +1,5 @@
 package payroll.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import payroll.controller.request.OrderRequest;
@@ -37,20 +36,12 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}/cancel")
-    public ResponseEntity<?> cancel(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(service.cancel(id));
-        } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(e.getMessage());
-        }
+    public OrderResponse cancel(@PathVariable Long id) {
+        return service.cancel(id);
     }
 
     @PutMapping("/{id}/complete")
-    public ResponseEntity<?> complete(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(service.complete(id));
-        } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(e.getMessage());
-        }
+    public OrderResponse complete(@PathVariable Long id) {
+        return service.complete(id);
     }
 }
